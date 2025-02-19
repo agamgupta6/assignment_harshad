@@ -20,7 +20,8 @@
     "baseUrl": "./src",
     "paths": {
       "@services/*" : ["app/shared/services/*"],
-      "@interceptors/*" : ["app/shared/interceptors/*"]
+      "@interceptors/*" : ["app/shared/interceptors/*"],
+      "@interfaces/*" : ["app/shared/interfaces/*"],
     }
   },
   "angularCompilerOptions": {

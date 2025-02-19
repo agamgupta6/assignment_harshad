@@ -1,1 +1,12 @@
-{{message}}
+
+<mat-card appearance="outlined" class="status-card">
+    <mat-card-content>
+        <span [ngClass]="{'error-message' : isError,'success-message' : !isError}">{{message}}</span>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-fab extended (click)="goBack()">
+            <mat-icon>arrow_back_2</mat-icon>
+            Back
+          </button>
+      </mat-card-actions>
+  </mat-card>

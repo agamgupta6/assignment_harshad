@@ -6,14 +6,19 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 export function httpInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
  Observable<HttpEvent<unknown>> {
   const route = inject(Router);
-  return next(req).pipe(tap(event => {
-    if (event.type === HttpEventType.Response) {
-      console.log(req.url, 'returned a response with status', event.status);
-    }
-  }),
+  return next(req).pipe(
   catchError((httpError: HttpErrorResponse) => {
-    console.log('error in api ',httpError.error?.errors[0].message);
-    route.navigate(['checkin-status'], { state: { message:httpError.error?.errors[0].message } });
+   switch( httpError.status){
+    case 401:
+      route.navigate(['checkin-status'], { state: { message:'You are not authorized to perform this action',error:true } });
+      break;
+    case 500:
+      route.navigate(['checkin-status'], { state: { message:'There is some problem. Please try again.',error:true } });
+      break;
+    case 400:
+      route.navigate(['checkin-status'], { state: { message:httpError.error?.errors[0].message,error:true } });
+      break;
+   }
     return throwError(() => httpError);
   }));
 }

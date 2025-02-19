@@ -1,33 +1,51 @@
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Shipping Information</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="row">
-          <div class="col">
-            @if (addressForm.controls['firstName'].hasError('required')) {
-              <mat-error>First name is <strong>required</strong></mat-error>
-            }
-            <mat-form-field class="full-width">
-             
-              <input matInput placeholder="First name" formControlName="firstName">
-             
-            </mat-form-field>
-          </div>
-          <div class="col">
-            @if (addressForm.controls['lastName'].hasError('required')) {
-              <mat-error>Last name is <strong>required</strong></mat-error>
-            }
-            <mat-form-field class="full-width">
-              <input matInput placeholder="Last name" formControlName="lastName">
-            </mat-form-field>
-          </div>
+<form [formGroup]="checkinForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="checkin-card">
+    <mat-card-header>
+      <mat-card-title i18n>Web Check in</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          @if(checkinForm.controls['familyName'].valid ||
+          checkinForm.controls['familyName'].pristine){
+          <label for="familyName">Family Name*</label>
+          } @if (checkinForm.controls['familyName'].hasError('required')&&
+          checkinForm.controls['familyName'].dirty) {
+          <mat-error>Family Name <strong>required</strong></mat-error>
+          } @if (checkinForm.controls['familyName'].hasError('pattern')) {
+          <mat-error> Invalid characters</mat-error>
+          } @if ( checkinForm.controls['familyName'].hasError('maxlength')) {
+          <mat-error> Family name can not exceed 15 characters</mat-error>
+          }
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Family Name" formControlName="familyName" name="familyName" />
+            <mat-icon matSuffix aria-hidden="true">person</mat-icon>
+          </mat-form-field>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
-  
+        <div class="col">
+          @if (checkinForm.controls['bookingCode'].valid ||
+          checkinForm.controls['bookingCode'].pristine) {
+          <label for="bookingCode">Booking Code*</label>
+          } @if (checkinForm.controls['bookingCode'].hasError('required') &&
+          checkinForm.controls['bookingCode'].dirty) {
+          <mat-error> Booking code is <strong>required</strong> </mat-error>
+          } @if (checkinForm.controls['bookingCode'].hasError('pattern')) {
+          <mat-error> Invalid characters </mat-error>
+          } @if (checkinForm.controls['bookingCode'].hasError('minlength') ||
+          checkinForm.controls['bookingCode'].hasError('maxlength')) {
+          <mat-error> Booking code must be 6 characters </mat-error>
+          }
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Booking Code" formControlName="bookingCode" name="bookingCode" />
+            <mat-icon matSuffix aria-hidden="true">flight_takeoff</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!checkinForm.valid">
+        Check in
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

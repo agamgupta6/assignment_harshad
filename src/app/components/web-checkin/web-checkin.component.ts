@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+
 import { CheckinService } from '@services/checkin/checkin.service';
 
 @Component({
@@ -15,18 +17,29 @@ import { CheckinService } from '@services/checkin/checkin.service';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
     ReactiveFormsModule,
   ],
 })
 export class WebCheckinComponent {
   private fb = inject(FormBuilder);
   checkinService = inject(CheckinService);
-  addressForm = this.fb.group({
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
+  checkinForm = this.fb.group({
+    familyName: ['', [Validators.required, Validators.pattern("^[a-zA-Z]*$"),Validators.maxLength(15)]],
+    bookingCode: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]*$"),Validators.minLength(6),Validators.maxLength(6)]]
   });
 
   onSubmit(): void {
-    this.checkinService.doCheckin();
+    if(this.familyName && this.bookingCode){
+      this.checkinService.doCheckin(this.familyName,this.bookingCode);
+    }
   }
+
+  get familyName(){
+    return this.checkinForm.get('familyName')?.value;
+  }
+  get bookingCode(){
+    return this.checkinForm.get('bookingCode')?.value;
+  }
+
 }
