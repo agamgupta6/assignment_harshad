@@ -19,7 +19,8 @@
     "module": "ES2022",
     "baseUrl": "./src",
     "paths": {
-      "@services/*" : ["app/shared/services/*"]
+      "@services/*" : ["app/shared/services/*"],
+      "@interceptors/*" : ["app/shared/interceptors/*"]
     }
   },
   "angularCompilerOptions": {
