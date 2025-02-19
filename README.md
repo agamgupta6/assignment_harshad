@@ -1,59 +1,49 @@
-# Checkin
+# angular-graphql
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+# Install and Run
+Run npm install in both folders (server and checkin ). Open 2 terminals in root folder and run below commands to start front and back:
+## Run
 
-## Development server
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-ng generate component component-name
+npm run front
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
 ```bash
-ng generate --help
+npm run back
 ```
 
-## Building
+Access app on  http://localhost:4200/
 
-To build the project run:
+## Testing
+Use below data for testing:
 
 ```bash
-ng build
+const bookings = [
+  {
+    bookingCode: "K12345",
+    fName: "Gupta",
+    checkinStatus: true,
+    checkinWindow: "CLOSED",
+  },
+  {
+    bookingCode: "K23456",
+    fName: "Singh",
+    checkinStatus: false,
+    checkinWindow: "PRE",
+  },
+  {
+    bookingCode: "K34567",
+    fName: "Bankar",
+    checkinStatus: false,
+    checkinWindow: "OPEN",
+  },
+  {
+    bookingCode: "K45678",
+    fName: "JOHN",
+    checkinStatus: false,
+    checkinWindow: "CLOSED",
+  },
+];
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
