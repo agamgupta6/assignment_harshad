@@ -1,5 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 
 @Injectable({
@@ -7,10 +6,9 @@ import { Apollo, gql } from 'apollo-angular';
 })
 export class CheckinService { 
   private readonly apollo = inject(Apollo);
-  private readonly router = inject(Router);
  
   doCheckin(familyName:string, bookingCode:string) {
-    this.apollo
+    return this.apollo
       .mutate({
         mutation: gql`
           mutation CHECKIN($bookingCode:String!, $familyName: String! ) {
@@ -20,10 +18,7 @@ export class CheckinService {
           }
         `,
         variables:{familyName,bookingCode}
-      })
-      .subscribe((result: any) => {
-        this.router.navigateByUrl('checkin-status',{state:{message:result.data.doCheckin.message,error:false }});
-              
       });
+      
   }
 }

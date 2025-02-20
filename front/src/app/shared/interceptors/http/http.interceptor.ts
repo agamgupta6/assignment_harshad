@@ -18,6 +18,8 @@ export function httpInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
     case 400:
       route.navigate(['checkin-status'], { state: { message:httpError.error?.errors[0].message,error:true } });
       break;
+      default:
+        route.navigate(['checkin-status'], { state: { message:'There is some problem. Please try again.',error:true } });
    }
     return throwError(() => httpError);
   }));

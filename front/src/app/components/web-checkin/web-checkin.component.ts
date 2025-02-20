@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 
 import { CheckinService } from '@services/checkin/checkin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-web-checkin',
@@ -23,6 +24,8 @@ import { CheckinService } from '@services/checkin/checkin.service';
 })
 export class WebCheckinComponent {
   private fb = inject(FormBuilder);
+  private readonly router = inject(Router);
+  loading= signal(false);
   checkinService = inject(CheckinService);
   checkinForm = this.fb.group({
     familyName: ['', [Validators.required, Validators.pattern("^[a-zA-Z]*$"),Validators.maxLength(15)]],
@@ -30,8 +33,13 @@ export class WebCheckinComponent {
   });
 
   onSubmit(): void {
+    this.loading.set(true);
     if(this.familyName && this.bookingCode){
-      this.checkinService.doCheckin(this.familyName,this.bookingCode);
+      this.checkinService.doCheckin(this.familyName,this.bookingCode)
+      .subscribe((result: any) => {
+        this.router.navigateByUrl('checkin-status',{state:{message:result.data.doCheckin.message,error:false }});
+        this.loading.set(false);   
+      });
     }
   }
 

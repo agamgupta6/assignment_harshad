@@ -43,7 +43,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!checkinForm.valid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!checkinForm.valid || loading()">
         Check in
       </button>
     </mat-card-actions>
