@@ -68,7 +68,9 @@
               "sourceMap": true
             },
             "fr": {
-              "localize": ["fr"]
+              "localize": [
+                "fr"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -111,6 +113,17 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "checkin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "checkin:serve:production"
+            }
           }
         }
       }
